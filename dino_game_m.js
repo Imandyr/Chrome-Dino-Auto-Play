@@ -7,6 +7,7 @@ const AUTORUN_CONFIG = {  // CHANGE: The autorun config is created.
     THRESHOLD: 2000,  // The score threshold.
     B_T_CHANCE: -1,  // The chance (0-100) to miss a jump before the threshold is reached.
     A_T_CHANCE: 90,  // The chance (0-100) to miss a jump after the threshold is reached.
+    PREEMPTIVE_JUMP_M: 19.52508753671948,  // The multiplier of the length from the nearest obstacle on which the dinosaur is jumping.
 };
 
 // Function Fix for "requestAnimationFrame" 12.06.17
@@ -763,7 +764,7 @@ clearTimeout(id);
         var obstacleBoxXPos = Runner.defaultDimensions.WIDTH + obstacle.xPos;
         var tRexBox = new CollisionBox(tRex.xPos + 1, tRex.yPos + 1,
                                        tRex.config.WIDTH + runner.currentSpeed * (
-                                          19.52508753671948 / runner.config.MAX_SPEED * runner.currentSpeed),
+                                          AUTORUN_CONFIG.PREEMPTIVE_JUMP_M / runner.config.MAX_SPEED * runner.currentSpeed),
                                        tRex.config.HEIGHT - 2);  // CHANGE: Increased the additional dinosaur's width, so it would consider itself "colliding" earlier than it should. It's increased with the increase in the speed variable.
         var obstacleBox = new CollisionBox(obstacle.xPos + 1, obstacle.yPos + 1, obstacle.typeConfig.width * obstacle.size - 2, obstacle.typeConfig.height - 2);
         if (AUTORUN_CONFIG.C_B_VISUALIZATION) {  // CHANGE: Visualizes the collision boxes only if the config says so.
